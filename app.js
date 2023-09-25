@@ -52,14 +52,14 @@ pokemon.pokemon(app, header, auth);
 const item = require("./route/api/item");
 item.item(app, header);
 
-const register = require("./route/api/register");
+/* const register = require("./route/api/register");
 register.register(app, header);
 
 const login = require("./route/api/login");
 login.login(app, header);
 
 const user = require("./route/api/user");
-user.user(app, auth);
+user.user(app, auth); */
 
 app.listen(port, () =>
   console.log(`Server is running on ${port}, http://localhost:${port}`)
