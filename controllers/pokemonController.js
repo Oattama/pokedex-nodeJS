@@ -1,4 +1,5 @@
 require("dotenv").config();
+const { default: fetch } = require("node-fetch");
 const dbConnection = require("../config/database");
 const pokemon = require("../file/pokemon");
 const count = require("../utils/lib/count");

@@ -1,3 +1,4 @@
+const { default: fetch } = require("node-fetch");
 const pokemon = require("../../file/pokemon");
 
 module.exports = {
