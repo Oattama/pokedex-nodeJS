@@ -2,6 +2,8 @@ require("dotenv").config();
 const dbConnection = require("../config/database");
 const pokemon = require("../file/pokemon");
 const count = require("../utils/lib/count");
+const random = require("../utils/lib/random");
+const sort = require("../utils/lib/sort");
 
 module.exports = {
   listPokemon: async (req, res) => {
@@ -56,6 +58,21 @@ module.exports = {
     );
     const pokeData = await api.json();
 
+    //check Sprites
+    let sprites = {};
+
+    if (pokeData.sprites.other.home.front_default !== null) {
+      sprites = {
+        default: pokeData.sprites.other.home.front_default,
+        shiny: pokeData.sprites.other.home.front_shiny,
+      };
+    } else {
+      sprites = {
+        default: pokeData.sprites.other["official-artwork"].front_default,
+      };
+    }
+
+    // loop get only move name and level
     for (let i = 0; i < pokeData.moves.length; i++) {
       let length = pokeData.moves[i].version_group_details.length - 1;
       if (
@@ -77,18 +94,8 @@ module.exports = {
         otherMove.push(move);
       }
     }
-    //bubble Sort
-    let temp = "";
 
-    for (let i = 1; i < levelMove.length; i++) {
-      for (let j = 0; j < levelMove.length - i; j++) {
-        if (levelMove[j].level > levelMove[j + 1].level) {
-          temp = levelMove[j];
-          levelMove[j] = levelMove[j + 1];
-          levelMove[j + 1] = temp;
-        }
-      }
-    }
+    const move = await sort.bubbleSort(levelMove);
 
     data = {
       id: pokeData.id,
@@ -97,20 +104,38 @@ module.exports = {
       base_experience: pokeData.base_experience,
       height: pokeData.height,
       weight: pokeData.weight,
-      sprites: [
-        {
-          default: pokeData.sprites.other.home.front_default,
-          shiny: pokeData.sprites.other.home.front_shiny,
-        },
-      ],
+      sprites: [sprites],
       stats: pokeData.stats,
       types: pokeData.types,
       moves: [
         {
-          levelMove: levelMove,
+          levelMove: move,
           otherMove: otherMove,
         },
       ],
+    };
+
+    if (api.ok) {
+      try {
+        res.json({ status: true, data });
+      } catch (error) {
+        res.json({ status: false, msg: "error" });
+      }
+    } else {
+      res.json({ status: false });
+    }
+  },
+  randomPokemon: async (req, res) => {
+    const id = random.randomPokemon();
+
+    const api = await fetch(`${process.env.POKEMONAPI_HOST}/pokemon/${id}`);
+
+    let data = await api.json();
+
+    data = {
+      id: data.id,
+      name: data.name,
+      sprites: data.sprites.other.home.front_default,
     };
 
     if (api.ok) {

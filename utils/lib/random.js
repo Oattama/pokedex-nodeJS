@@ -1,3 +1,5 @@
+const pokemon = require("../../file/pokemon");
+
 module.exports = {
   randomid: (length) => {
     var userId = "";
@@ -10,5 +12,10 @@ module.exports = {
     }
 
     return userId;
+  },
+
+  randomPokemon: () => {
+    const ranNum = Math.floor(Math.random() * (pokemon.length - 1)) + 1;
+    return ranNum;
   },
 };

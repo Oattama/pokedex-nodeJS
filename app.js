@@ -50,6 +50,9 @@ const auth = (req, res, next) => {
 const update = require("./utils/lib/update");
 update.updatePokemon();
 
+const random = require("./utils/lib/random");
+random.randomPokemon();
+
 // service
 const pokemon = require("./route/api/pokemon");
 pokemon.pokemon(app, header, auth);

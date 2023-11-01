@@ -7,7 +7,7 @@ const util = require("util");
 
 module.exports = {
   updatePokemon: async () => {
-    schedule.scheduleJob("0 0 0 1 * * ", async () => {
+    schedule.scheduleJob(" 0 0 1 * * ", async () => {
       const api = await fetch(`${process.env.POKEMONAPI_HOST}/pokemon`);
 
       const data = await api.json();
@@ -56,6 +56,7 @@ module.exports = {
             );
 
             file.write(`]; \r\n \r\n module.exports = pokemon;`);
+            console.log("update successful!!!");
           } else {
             console.log("pokemon is already uptodate");
           }

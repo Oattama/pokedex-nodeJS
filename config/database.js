@@ -1,4 +1,4 @@
-/* require("dotenv").config();
+require("dotenv").config();
 const mysql = require("mysql2");
 
 const dbConnection = mysql.createConnection({
@@ -7,4 +7,12 @@ const dbConnection = mysql.createConnection({
   database: process.env.DB_NAME,
 });
 
-module.exports = dbConnection; */
+dbConnection.connect((err) => {
+  if (err) {
+    console.log("database is down");
+  } else {
+    return;
+  }
+});
+
+module.exports = dbConnection;

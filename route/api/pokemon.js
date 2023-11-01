@@ -12,6 +12,10 @@ module.exports = {
       const pokemonController = require("../../controllers/pokemonController");
       pokemonController.viewPokemon(req, res);
     });
+    app.get("/randomPokemon", (req, res) => {
+      const pokemonController = require("../../controllers/pokemonController");
+      pokemonController.randomPokemon(req, res);
+    });
     app.post("/addFavPokemon", auth, (req, res) => {
       jwt.verify(req.token, scToken, (err, decoded) => {
         if (!err) {

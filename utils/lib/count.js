@@ -29,6 +29,7 @@ module.exports = {
             pokemon = {
               id: data.id,
               name: data.name,
+              sprites: data.sprites.other["official-artwork"].front_default,
             };
           }
 
@@ -109,6 +110,7 @@ module.exports = {
               pokemon = {
                 id: data.id,
                 name: data.name,
+                sprites: data.sprites.other["official-artwork"].front_default,
               };
             }
             checkAPI = true;
