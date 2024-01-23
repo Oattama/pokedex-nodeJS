@@ -1,18 +1,18 @@
 require("dotenv").config();
 const fs = require("fs");
 const pokemon = require("../../file/pokemon");
-const schedule = require("node-schedule");
+const cron = require("node-cron");
 const path = require("path");
 const util = require("util");
 
 module.exports = {
-  updatePokemon: async () => {
-    schedule.scheduleJob(" 0 0 1 * * ", async () => {
+  updatePokemon: () => {
+    cron.schedule(" 0 0 0 1 * * ", async () => {
       const api = await fetch(`${process.env.POKEMONAPI_HOST}/pokemon`);
 
       const data = await api.json();
 
-      const new_data = data.count - 275;
+      const new_data = data.count - 276;
 
       if (api.ok) {
         try {
@@ -20,12 +20,14 @@ module.exports = {
             let arrPokemon = [];
             let typePokemon = {};
 
-            for (let i = 1; i <= new_data; i++) {
+            for (let i = 1; i < new_data; i++) {
+              console.log(i);
               const apiPoke = await fetch(
                 `${process.env.POKEMONAPI_HOST}/pokemon/${i}`
               );
 
               const pokemon = await apiPoke.json();
+
               //loop slot type
               for (let j = 0; j < pokemon.types.length; j++) {
                 typePokemon[`slot${pokemon.types[j].slot}`] =
@@ -61,6 +63,7 @@ module.exports = {
             console.log("pokemon is already uptodate");
           }
         } catch (error) {
+          console.log(error);
           console.log("updatePokemon error!!!");
         }
       }

@@ -2036,6 +2036,42 @@ const pokemon = [
   type: { slot1: 'poison', slot2: 'fairy' }
 },
 { id: 1017, name: 'ogerpon', type: { slot1: 'grass' } },
+{
+  id: 1018,
+  name: 'archaludon',
+  type: { slot1: 'steel', slot2: 'dragon' }
+},
+{
+  id: 1019,
+  name: 'hydrapple',
+  type: { slot1: 'grass', slot2: 'dragon' }
+},
+{
+  id: 1020,
+  name: 'gouging-fire',
+  type: { slot1: 'fire', slot2: 'dragon' }
+},
+{
+  id: 1021,
+  name: 'raging-bolt',
+  type: { slot1: 'electric', slot2: 'dragon' }
+},
+{
+  id: 1022,
+  name: 'iron-boulder',
+  type: { slot1: 'rock', slot2: 'psychic' }
+},
+{
+  id: 1023,
+  name: 'iron-crown',
+  type: { slot1: 'steel', slot2: 'psychic' }
+},
+{ id: 1024, name: 'terapagos', type: { slot1: 'normal' } },
+{
+  id: 1025,
+  name: 'pecharunt',
+  type: { slot1: 'poison', slot2: 'ghost' }
+},
 ]; 
  
  module.exports = pokemon;
